@@ -43,11 +43,11 @@ kind: Service
 metadata:
   name: hello-nginx-service
 spec:
+  type: NodePort
   selector:
     app: hello-nginx
   ports:
     - protocol: TCP
       port: 80
       targetPort: 80
-  type: LoadBalancer
-
+      nodePort: 30080
