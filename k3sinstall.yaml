@@ -1,0 +1,25 @@
+---
+- name: Install k3s on single-node Linux machine
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install required packages on Amazon Linux
+      when: ansible_facts['os_family'] == 'Amazon'
+      package:
+        name:
+          - curl
+          - ca-certificates
+        state: present
+
+    - name: Download and install k3s
+      shell: curl -sfL https://get.k3s.io | sh -
+      args:
+        creates: /usr/local/bin/k3s
+
+    - name: Wait for k3s service to be up
+      shell: kubectl get nodes
+      register: output
+      retries: 5
+      delay: 10
+      until: output.rc == 0
+
