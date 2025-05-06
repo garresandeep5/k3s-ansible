@@ -33,8 +33,8 @@ metadata:
 data:
   index.html: |
     <html>
-      <head><title>Hi champ</title></head>
-      <body><h1>Wellcome@sandy!</h1></body>
+      <head><title>Wellcome champ</title></head>
+      <body><h1>@sandy!</h1></body>
     </html>
 
 ---
