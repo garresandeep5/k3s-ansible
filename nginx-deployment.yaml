@@ -34,7 +34,7 @@ data:
   index.html: |
     <html>
       <head><title>Wellcome champ</title></head>
-      <body><h1>@sandy!</h1></body>
+      <body><h1>sandy!</h1></body>
     </html>
 
 ---
