@@ -1,23 +1,24 @@
-name: Deploy to k3s
+name: Deploy to K3s
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
+    - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Kubeconfig
+    - name: Set up kubeconfig
       run: |
-        mkdir -p ~/.kube
-        echo "${{ secrets.KUBECONFIG_B64 }}" | base64 -d > $HOME/.kube/config
-        chmod 600 ~/.kube/config
+        echo "${{ secrets.KUBECONFIG_BASE64 }}" | base64 -d > kubeconfig
+        export KUBECONFIG=$PWD/kubeconfig
+        kubectl config get-contexts
 
-    - name: Deploy Nginx to k3s
+    - name: Deploy Nginx
       run: |
-        kubectl apply -f nginx-deployment.yaml
+        export KUBECONFIG=$PWD/kubeconfig
+        kubectl apply -f nginx-deployment.yaml --validate=false
